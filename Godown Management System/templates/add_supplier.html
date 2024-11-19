@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Supplier and Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group h3 {
+            font-size: 18px;
+            color: #555;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #66afe9;
+            outline: none;
+        }
+
+        select {
+            background-color: #fff;
+            color: #333;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #5cb85c;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        button[type="submit"]:focus {
+            outline: none;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .form-group h3 {
+                font-size: 16px;
+            }
+
+            label, input, select, button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Supplier and Products</h1>
+        <form action="/add_supplier" method="POST">
+            <div class="form-group">
+                <h3>Supplier Information</h3>
+                <label for="supplier_name">Supplier Name:</label>
+                <input type="text" id="supplier_name" name="supplier_name" required>
+                
+                <label for="contact_info">Contact Info:</label>
+                <input type="text" id="contact_info" name="contact_info" required>
+            </div>
+
+            <div class="form-group">
+                <h3>Product Information</h3>
+                <label for="product_name">Product Name:</label>
+                <input type="text" id="product_name" name="product_name" required>
+
+                <label for="category">Category:</label>
+                <input type="text" id="category" name="category" required>
+
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" required>
+
+                <label for="cost_per_unit">Cost Per Unit:</label>
+                <input type="number" id="cost_per_unit" name="cost_per_unit" step="0.01" min="0" required>
+
+                <label for="supply_date">Supply Date:</label>
+                <input type="date" id="supply_date" name="supply_date" required>
+
+                <label for="mfg_date">Manufacturing Date:</label>
+                <input type="date" id="mfg_date" name="mfg_date" required>
+
+                <label for="exp_date">Expiration Date:</label>
+                <input type="date" id="exp_date" name="exp_date" required>
+
+                <label for="price_per_unit">Selling Price Per Unit:</label>
+                <input type="number" id="price_per_unit" name="price_per_unit" step="0.01" min="0" required>
+
+                <label for="warehouse_id">Warehouse:</label>
+                <select id="warehouse_id" name="warehouse_id" required>
+                    {% for warehouse in warehouses %}
+                        <option value="{{ warehouse['WarehouseID'] }}">{{ warehouse['Name'] }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="availability">Availability:</label>
+                <input type="number" id="availability" name="availability" min="0" required>
+            </div>
+
+            <button type="submit">Add Supplier and Products</button>
+        </form>
+    </div>
+</body>
+</html>

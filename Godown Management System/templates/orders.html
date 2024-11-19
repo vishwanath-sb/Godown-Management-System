@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Order</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Place Order</h2>
+
+        <!-- Display Flash Message if Any -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Order Form -->
+        <form method="POST">
+            <!-- Customer Selection Dropdown -->
+            <div class="form-group">
+                <label for="customer_id">Select Customer</label>
+                <select id="customer_id" name="customer_id" class="form-control" required>
+                    <option value="" disabled selected>Select a customer</option>
+                    {% for customer in customers %}
+                        <option value="{{ customer.CustomerID }}">{{ customer.Name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Product and Quantity Inputs (Multiple) -->
+            <div id="products-container">
+                <div class="product-group">
+                    <div class="form-group">
+                        <label for="product_id">Select Product</label>
+                        <select class="form-control" name="product_id" required>
+                            <option value="" disabled selected>Select a product</option>
+                            {% for product in products %}
+                                <option value="{{ product.ProductID }}">{{ product.Name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" class="form-control" name="quantity" min="1" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add More Products Button -->
+            <button type="button" class="btn btn-secondary mb-3" onclick="addProduct()">Add Another Product</button>
+
+            <!-- Order Date Input -->
+            <div class="form-group">
+                <label for="order_date">Order Date</label>
+                <input type="date" id="order_date" name="order_date" class="form-control" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+
+        <a href="/" class="btn btn-secondary mt-3">Back to Home</a>
+    </div>
+
+    <!-- Optional Bootstrap JS for better styling and responsiveness -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom JavaScript for Adding More Products -->
+    <script>
+        function addProduct() {
+            var container = document.getElementById('products-container');
+            var productGroup = document.createElement('div');
+            productGroup.classList.add('product-group');
+
+            var productSelect = document.createElement('select');
+            productSelect.classList.add('form-control');
+            productSelect.name = 'product_id';
+            productSelect.required = true;
+
+            {% for product in products %}
+                var option = document.createElement('option');
+                option.value = "{{ product.ProductID }}";
+                option.text = "{{ product.Name }}";
+                productSelect.appendChild(option);
+            {% endfor %}
+
+            var quantityInput = document.createElement('input');
+            quantityInput.type = 'number';
+            quantityInput.classList.add('form-control');
+            quantityInput.name = 'quantity';
+            quantityInput.min = 1;
+            quantityInput.required = true;
+
+            var productDiv = document.createElement('div');
+            productDiv.classList.add('form-group');
+            productDiv.appendChild(document.createTextNode('Select Product'));
+            productDiv.appendChild(productSelect);
+
+            var quantityDiv = document.createElement('div');
+            quantityDiv.classList.add('form-group');
+            quantityDiv.appendChild(document.createTextNode('Quantity'));
+            quantityDiv.appendChild(quantityInput);
+
+            productGroup.appendChild(productDiv);
+            productGroup.appendChild(quantityDiv);
+
+            container.appendChild(productGroup);
+        }
+    </script>
+</body>
+</html>

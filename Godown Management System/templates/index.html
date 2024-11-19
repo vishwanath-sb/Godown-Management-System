@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godown Management System</title>
+    <style>
+        /* Resetting margin and padding for all elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f6f8;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        header h1 {
+            color: #2d4059;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #596275;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .button-container button {
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .button-container button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Godown Management System</h1>
+            <p>Manage daily consumer goods inventory effectively</p>
+        </header>
+
+        <div class="button-container">
+            <button onclick="location.href='sell'">Purchasing (Suppliers)</button>
+            <button onclick="location.href='orders'">Selling (Orders)</button>
+            <button onclick="location.href='reports'">Report Generation</button>
+            <button onclick="location.href='products'">Product List</button>
+            <button onclick="location.href='add_supplier'">Add Supplier</button>
+        </div>
+    </div>
+
+</body>
+</html>

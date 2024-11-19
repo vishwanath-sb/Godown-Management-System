@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f9fafb;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: #007BFF;
+        }
+
+        /* Most Costly Product Section */
+        .most-costly-product {
+            background-color: #fff;
+            border: 1px solid #007BFF;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .most-costly-product h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #007BFF;
+            text-align: center;
+        }
+
+        .most-costly-product p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .most-costly-product span {
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Product Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #007BFF;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #e8f0fe;
+        }
+
+        .no-data {
+            text-align: center;
+            font-style: italic;
+            color: #999;
+            padding: 20px;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+                width: 100%;
+            }
+
+            thead tr {
+                display: none;
+            }
+
+            tr {
+                margin-bottom: 15px;
+                border-bottom: 1px solid #ddd;
+                padding: 10px;
+                border-radius: 8px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            td {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+            }
+
+            td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #555;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Most Costly Product Section -->
+        <div class="most-costly-product">
+            <h2>Most Costly Product</h2>
+            {% if most_costly_product %}
+                <p><span>Name:</span> {{ most_costly_product.Name }}</p>
+                <p><span>Category:</span> {{ most_costly_product.Category }}</p>
+                <p><span>Price Per Unit:</span> {{ most_costly_product.PricePerUnit }}</p>
+                <p><span>Availability:</span> {{ most_costly_product.Availability }}</p>
+                <p><span>Manufacture Date:</span> {{ most_costly_product.mfg_date }}</p>
+                <p><span>Expiry Date:</span> {{ most_costly_product.exp_date }}</p>
+                <p><span>Warehouse:</span> {{ most_costly_product.WarehouseName }}</p>
+            {% else %}
+                <p>No data available for the most costly product.</p>
+            {% endif %}
+        </div>
+
+        <!-- Product List Table -->
+        <h1>Products</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price Per Unit</th>
+                    <th>Availability</th>
+                    <th>Manufacture Date</th>
+                    <th>Expiry Date</th>
+                    <th>Warehouse</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if products and products|length > 0 %}
+                    {% for product in products %}
+                    <tr>
+                        <td data-label="Name">{{ product.Name }}</td>
+                        <td data-label="Category">{{ product.Category }}</td>
+                        <td data-label="Price Per Unit">{{ product.PricePerUnit }}</td>
+                        <td data-label="Availability">{{ product.Availability }}</td>
+                        <td data-label="Manufacture Date">{{ product.mfg_date }}</td>
+                        <td data-label="Expiry Date">{{ product.exp_date }}</td>
+                        <td data-label="Warehouse">{{ product.WarehouseName }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="no-data">No products available</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
